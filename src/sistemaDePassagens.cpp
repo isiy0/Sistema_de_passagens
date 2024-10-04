@@ -47,7 +47,7 @@ int main() {
  |_____/|_|___/\__\___|_| |_| |_|\__,_|  \__,_|\___| |_|  \___||___/\___|_|    \_/ \__,_|___/
     )" << std::endl;
    
-    printf("\nOlá, tudo bem com você? Espero que sim!\nMe chamo Gui e serei o seu guia de reserva de poltronas!\n\nEspero que possa lhe ajudar!\n\n");
+    printf("\n\033[34mOlá, tudo bem com você? Espero que sim!\nMe chamo Gui e serei o seu guia de reserva de poltronas!\n\nEspero que possa lhe ajudar!\n\n");
     std::cout << R"(                                                                                                    
                                                                              
                                                   
@@ -74,55 +74,74 @@ int main() {
     sleep(5);
     
     while(true){
-        printf("\n\nQuantas poltronas você deseja reservar?\n");
+        printf("\n\n\033[33mQuantas poltronas você deseja reservar?\n");
     
         scanf("%d", &reservas);
         clearInputBuffer();
     
         if (reservas <= 0)
         {
-            printf("Valor inválido! Por favor, digite um valor válido!\n");
+            printf("\033[31mValor inválido! Por favor, digite um valor válido!\n");
             continue;   
         }
 
-        printf("\nObrigado pela resposta!\n\nEntão");
+        printf("\n\033[32mObrigado pela resposta!\n\nEntão");
         if (reservas>1){
-            printf(" serão %d poltronas...", reservas);
+            printf("\033[32m serão %d poltronas...", reservas);
         }
         else{
-            printf(" será %d poltrona...", reservas);
+            printf("\033[32m será %d poltrona...", reservas);
         }
-        printf(" Anotado!\n\nAh, antes que eu esqueça... qual classe você prefere?");
+        printf("\033[32m Anotado!\n");
+        printf("\n\033[33mAh, antes que eu esqueça... qual classe você prefere?");
         
+        int selection = 0;
+        while (true)
+        {
+            switch (reservas){
+                case 1:
+                    printf("\n\033[33m1 ->Executiva");
+                    selection = 1;
+                    break;
+                case 2:
+                    printf("\n\033[33m1 ->Executiva");
+                    
+                    printf("\n\033[33m2 ->Combo Casal <3");
+                    selection = 2;
+                    break;
+                default:
+
+                    printf("\n\033[33m1 ->Executiva");
+                    if (reservas % 2 ==0){
+                        printf("\n\033[33m2 ->Combo Casal <3");
+                        printf("\n\033[33m3 ->Combo Familia");
+                        selection = 3;
+                    }
+                    else{
+                        printf("\n\033[33m2 ->Combo Familia");
+                        selection = 2;
+                    }
+                    break;
+            }
         
-        switch (reservas){
-            case 1:
-                printf("\n1 ->Executiva");
+            printf("\n\n\033[34mOBS: digite um número\n");
+        
+            scanf("%d", &classe);
+            if (classe < 1 || classe > selection){
+                printf("\n\033[31mClasse inválida!\n");
+                clearInputBuffer();
+                continue;
+            }
+            else {
+                clearInputBuffer();
                 break;
-            case 2:
-                printf("\n1 ->Executiva");
-                
-                printf("\n2 ->Combo Casal <3");
-                break;
-            default:
-                printf("\n1 ->Executiva");
-                
-                printf("\n2 ->Combo Casal <3");
-                
-                printf("\n3 ->Combo Familia");
-                break;
+            }
         }
+        printf("\n\033[32mÓtimo! Agora vamos escolher a");
+        reservas > 1 ? printf("\033[32ms suas poltronas ;)\n") : printf("\033[32m sua poltrona :)\n");
     
-        printf("\n\nOBS: digite um número\n");
-    
-        scanf("%d", &classe);
-        clearInputBuffer();
-    
-        printf("\nÓtimo! Agora vamos escolher a");
-        reservas > 1 ? printf("s suas poltronas ;)\n") : printf(" sua poltrona :)\n");
-    
-        printf("OBS: Poltronas com 'X' estão ocupadas e poltronas marcadas com '*' são recomendações de acordo com a quantidade de reservas selecionada.\n");
-        printf("\nPoltronas disponíveis:\n");
+        printf("\033[34mOBS: Poltronas com 'X' estão ocupadas e poltronas marcadas com '*' são recomendações de acordo com a quantidade de reservas selecionada.\n");
+        printf("\n\033[33mPoltronas disponíveis:\n");
     
         printf("\n     A  B  C  D  E  F \n\n");
         for (int x=0; x<10; x++){
@@ -148,7 +167,7 @@ int main() {
         for (int i=0; i<reservas; i++){
             bool invalido = false;
             while(true){
-                printf("\nDigite a letra da sua poltrona:");
+                printf("\n\033[33mDigite a letra da sua poltrona:");
                 scanf("%c", &poltrona);
                 clearInputBuffer();
 
@@ -180,7 +199,7 @@ int main() {
                         invalido = false;
                         break;
                     default:
-                        printf("\nPoltrona inválida!\n");
+                        printf("\n\033[31mPoltrona inválida!\n");
                         printf("%c", poltrona);
                         invalido = true;
                         break;   
@@ -191,11 +210,11 @@ int main() {
             }
             while (true)
             {
-                printf("\nDigite a fileira da sua poltrona: \n");
+                printf("\n\033[33mDigite a fileira da sua poltrona: \n");
                 scanf("%d", &fileira);
                 clearInputBuffer();
                 if (fileira < 1 || fileira > 10){
-                    printf("\nFileira inválida!\n");
+                    printf("\n\033[31mFileira inválida!\n");
                     invalido = true;
                 }
                 else {
@@ -229,11 +248,11 @@ int main() {
                 printf("\n");
             }
             if (!invalido){
-                printf("\n Poltrona selecionada: %c%d\n", poltrona, fileira);
+                printf("\n\033[32m Poltrona selecionada: %c%d\n", poltrona, fileira);
                 invalido = true;
             }
             else {
-                printf("Poltrona já selecionada pelo usuário ou ocupada.\nPor favor, selecione outra poltrona!\n");
+                printf("\033[31mPoltrona já selecionada pelo usuário ou ocupada.\nPor favor, selecione outra poltrona!\n");
             }
         }
 
@@ -247,7 +266,7 @@ int main() {
         char resposta;
         while (resposta != 's' && resposta != 'S' && resposta != 'n' && resposta != 'N')
         {
-            printf("\n\nDeseja fazer mais alguma reserva? (s/n)\n");
+            printf("\n\n\033[33mDeseja fazer mais alguma reserva? (s/n)\n");
             scanf(" %c", &resposta);
             clearInputBuffer();
             if (resposta == 'n' || resposta == 'N'){
@@ -258,7 +277,7 @@ int main() {
                 continue;
             }
             else {
-                printf("\nResposta inválida!\n");
+                printf("\n\033[31mResposta inválida!\n");
             }
         }
         if (resposta == 'n' || resposta == 'N'){
